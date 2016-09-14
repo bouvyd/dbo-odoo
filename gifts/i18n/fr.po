@@ -1,0 +1,724 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gifts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.saas~13e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-20 20:42+0200\n"
+"PO-Revision-Date: 2016-09-20 21:08+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Language: fr\n"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_more_info
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_popover
+#: model:ir.ui.view,arch_db:gifts.thanks
+msgid "<b>Total:</b>"
+msgstr "<b>Total:</b>"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "<b>Total</b>"
+msgstr "<b>Total</b>"
+
+#. module: gifts
+#: model:mail.template,body_html:gifts.mail_template_followup
+msgid ""
+"<html>\n"
+"            <head></head>\n"
+"            <body>\n"
+"                <p>Hi ${object.gifter_id.name},</p>\n"
+"                <p>Your help is greatly appreciated.</p>\n"
+"                % if object.account_id:\n"
+"                    <p>Here's the payment information:</p>\n"
+"                    Amount: ${object.price} ${object.gifter_id.company_id."
+"currency_id.symbol}\n"
+"                    ${object.account_id.payment_msg|safe}\n"
+"                % endif\n"
+"                <p>Love,</p>\n"
+"            </body>\n"
+"            </html>\n"
+"            \n"
+"            "
+msgstr ""
+"<html>\n"
+"            <head></head>\n"
+"            <body>\n"
+"                <p>Bonjour ${object.gifter_id.name},</p>\n"
+"                <p>Un grand merci pour votre cadeau.</p>\n"
+"                % if object.account_id:\n"
+"                    <p>Voici les détails de paiement:</p>\n"
+"                    Total: ${object.price} ${object.gifter_id.company_id."
+"currency_id.symbol}\n"
+"                    ${object.account_id.payment_msg|safe}\n"
+"                % endif\n"
+"                <p>Encore merci,</p>\n"
+"            </body>\n"
+"            </html>\n"
+"            \n"
+"            "
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_detail
+#: model:ir.ui.view,arch_db:gifts.product_more_info
+msgid "<i class=\"fa fa-check\"/> Already in list"
+msgstr "<i class=\"fa fa-check\"/> Déjà dans la liste"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "<i class=\"fa fa-check\"/>Offer"
+msgstr "<i class=\"fa fa-check\"/>Offrir"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.header
+msgid ""
+"<i class=\"fa fa-gift\"/>\n"
+"                  My list"
+msgstr ""
+"<i class=\"fa fa-gift\"/>\n"
+"                  Ma liste"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_detail
+#: model:ir.ui.view,arch_db:gifts.product_details_page
+#: model:ir.ui.view,arch_db:gifts.product_more_info
+msgid "<i class=\"fa fa-gift\"/> Add to list"
+msgstr "<i class=\"fa fa-gift\"/> Ajouter à la liste"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_more_info
+msgid "<span aria-hidden=\"true\">&amp;times;</span>"
+msgstr "<span aria-hidden=\"true\">&amp;times;</span>"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.report_followup
+msgid "<span>E-mail Announcements</span>"
+msgstr "<span>Faire-part par E-mail</span>"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.report_followup
+msgid "<span>Snail Mail Announcements</span>"
+msgstr "<span>Faire-part par courrier postal</span>"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid ""
+"A confirmation e-mail will be sent with payment details once you confirm "
+"your gift list."
+msgstr ""
+"Un e-mail de confirmation avec les détails de paiement sera envoyé lors de "
+"la validation."
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.report_followup
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Address"
+msgstr "Adresse"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_allow_split
+msgid "Allow Splitting"
+msgstr "Portionner"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_done
+msgid "Already offered"
+msgstr "Déjà Offerts"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_mail_type
+msgid "Announcement Type"
+msgstr "Type de Faire-part"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_details_list
+msgid "Available:"
+msgstr "Disponible:"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_account_id
+msgid "Bank Account"
+msgstr "Compte"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_baby_date
+msgid "Birth date proposal"
+msgstr "Date suggérée"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "City"
+msgstr "Ville"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Contact"
+msgstr "Contact"
+
+#. module: gifts
+#: model:ir.actions.act_window,name:gifts.gift_partner_action
+#: model:ir.ui.menu,name:gifts.gift_contact_menu
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Country"
+msgstr "Pays"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_create_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_create_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_create_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_product_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_create_date
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_create_date
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_create_date
+#: model:ir.model.fields,field_description:gifts.field_gift_product_create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_display_name
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_display_name
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_display_name
+#: model:ir.model.fields,field_description:gifts.field_gift_product_display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: gifts
+#: selection:gift.followup,mail_type:0 model:ir.ui.view,arch_db:gifts.cart
+msgid "E-mail"
+msgstr "E-mail"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.cart_popover
+msgid "Empty List"
+msgstr "Vider la liste"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "First & Last Names"
+msgstr "Nom & Prénom"
+
+#. module: gifts
+#: model:ir.actions.act_window,name:gifts.gift_followup_action
+#: model:ir.ui.menu,name:gifts.followup_menu
+#: model:ir.ui.menu,name:gifts.gift_followup_menu
+#: model:ir.ui.view,arch_db:gifts.gift_followup_tree_view
+msgid "Follow-ups"
+msgstr "Remerciements"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_gift_view_form
+msgid "Followup"
+msgstr "Remerciement"
+
+#. module: gifts
+#: model:ir.actions.report.xml,name:gifts.gift_followup_report
+msgid "Followups"
+msgstr "Remerciements"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_gifter_id
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_gifter_id
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+#: model:ir.ui.view,arch_db:gifts.gift_gift_search_view
+msgid "From"
+msgstr "De"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Get the announcement by snail mail"
+msgstr "Reçevoir le faire-part par courrier postal"
+
+#. module: gifts
+#: model:ir.model,name:gifts.model_gift_gift
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.gift_followup_view_form
+#: model:ir.ui.view,arch_db:gifts.gift_gift_view_form
+msgid "Gift"
+msgstr "Cadeau"
+
+#. module: gifts
+#: model:ir.model,name:gifts.model_gift_account
+msgid "Gift Bank Account"
+msgstr "Compte"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_gift_date
+msgid "Gift Date"
+msgstr "Date"
+
+#. module: gifts
+#: model:ir.model,name:gifts.model_gift_followup
+msgid "Gift Followup"
+msgstr "Remerciement"
+
+#. module: gifts
+#: model:ir.model,name:gifts.model_gift_product
+msgid "Gift Product"
+msgstr "Produit"
+
+#. module: gifts
+#: model:res.partner.category,name:gifts.gift_category
+msgid "Gift giver"
+msgstr "Offert par"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_message
+msgid "Gift message"
+msgstr "Message"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_details_list
+msgid "Gift price:"
+msgstr "Prix"
+
+#. module: gifts
+#: model:ir.actions.act_window,name:gifts.gift_gift_action
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_gift_ids
+#: model:ir.model.fields,field_description:gifts.field_gift_product_gift_ids
+#: model:ir.ui.menu,name:gifts.gift_base_menu
+#: model:ir.ui.menu,name:gifts.gift_gift_menu
+#: model:ir.ui.menu,name:gifts.gift_menu
+#: model:ir.ui.view,arch_db:gifts.gift_gift_tree_view
+#: model:ir.ui.view,arch_db:gifts.gifts
+#: model:website.menu,name:gifts.menu_gifts
+msgid "Gifts"
+msgstr "Cadeaux"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+#: model:ir.ui.view,arch_db:gifts.gift_gift_search_view
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_play_game
+msgid "Guess a Name"
+msgstr "Devinez le prénom"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_play_game
+msgid "Guess the Date"
+msgstr "Devinez la date"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_id
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_id
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_id
+#: model:ir.model.fields,field_description:gifts.field_gift_product_id
+msgid "ID"
+msgstr "ID"
+
+#. module: gifts
+#: model:ir.model.fields,help:gifts.field_gift_product_unlimited
+msgid ""
+"If checked, this product can be offered an unlimited number of times. Useful "
+"for giftcards, for example."
+msgstr ""
+"Si cette case est cochée, le produit peut être offert un nombre illimité de "
+"fois. Utile pour les produits de type \"bon cadeau\"."
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_image
+msgid "Image"
+msgstr "Image"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gifts
+msgid ""
+"It seems like you don't have any products yet.\n"
+"                                    Go"
+msgstr ""
+"Il semble que vous n'ayez pas encore de produit.\n"
+"                                    Allez"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid ""
+"It seems someone ordered one of the gift you wanted before you.\n"
+"                                It has been removed from your list; please "
+"have a look before confirming!"
+msgstr ""
+"Il semblerait que quelqu'un aie validé le même cadeau que vous .\n"
+"                                Ce cadeau a été retiré de votre liste; "
+"pensez à la revérifier avant de confirmer!"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account___last_update
+#: model:ir.model.fields,field_description:gifts.field_gift_followup___last_update
+#: model:ir.model.fields,field_description:gifts.field_gift_gift___last_update
+#: model:ir.model.fields,field_description:gifts.field_gift_product___last_update
+msgid "Last Modified on"
+msgstr "Modifié le"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_write_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_write_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_write_uid
+#: model:ir.model.fields,field_description:gifts.field_gift_product_write_uid
+msgid "Last Updated by"
+msgstr "Modifié par"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_write_date
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_write_date
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_write_date
+#: model:ir.model.fields,field_description:gifts.field_gift_product_write_date
+msgid "Last Updated on"
+msgstr "Modifié le"
+
+#. module: gifts
+#: model:ir.model.fields,help:gifts.field_gift_product_image
+msgid "Limited to 1024x1024px"
+msgstr "Limité à 1024x1024 pixels"
+
+#. module: gifts
+#: model:mail.template,subject:gifts.mail_template_followup
+msgid "Many thanks for your gift!"
+msgstr "Merci pour votre cadeau!"
+
+#. module: gifts
+#: model:ir.actions.server,name:gifts.gift_followup_mark_as_paid
+#: model:ir.ui.view,arch_db:gifts.gift_followup_view_form
+msgid "Mark as Paid"
+msgstr "Marqué comme Payé"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_image_medium
+msgid "Medium-sized image"
+msgstr "Image medium"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Message"
+msgstr "Message"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "My List"
+msgstr "Ma Liste"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_name
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_name
+#: model:ir.model.fields,field_description:gifts.field_gift_product_name
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.report_followup
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Name"
+msgstr "Nom"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_baby_name
+msgid "Name proposal"
+msgstr "Nom proposé"
+
+#. module: gifts
+#: selection:gift.product,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "New"
+msgstr "Nouveau"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.thanks
+msgid ""
+"No need to print this, we'll send you a copy of the payment details to the "
+"email address you provided as well."
+msgstr ""
+"Pas besoin d'imprimer cette page, une copie vous sera envoyé à l'email "
+"renseigné d'ici quelques instants."
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_split_number
+msgid "Number of gifts initially available for this product"
+msgstr "Nombre de cadeaux initiallement disponibles"
+
+#. module: gifts
+#: selection:gift.product,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_gift_search_view
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Offered"
+msgstr "Offert"
+
+#. module: gifts
+#: selection:gift.product,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Ongoing"
+msgstr "En cours"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_description_html
+msgid "Online Description"
+msgstr "Description sur le site"
+
+#. module: gifts
+#: selection:gift.followup,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+msgid "Paid"
+msgstr "Payé"
+
+#. module: gifts
+#: selection:gift.product,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Partially Offered"
+msgstr "Partiellement Offert"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_account_view_form
+msgid "Payment Account"
+msgstr "Compte"
+
+#. module: gifts
+#: model:ir.actions.act_window,name:gifts.gift_account_action
+#: model:ir.ui.menu,name:gifts.gift_account_menu
+#: model:ir.ui.view,arch_db:gifts.gift_account_tree_view
+msgid "Payment Accounts"
+msgstr "Comptes"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.thanks
+msgid "Payment Details"
+msgstr "Détails de paiement"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_payment_msg
+msgid "Payment Message"
+msgstr "Message de paiement"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_play_game
+msgid "Pick a date"
+msgstr "Tenter une date"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_play_game
+msgid "Pick a name"
+msgstr "Tener un prénom"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Please enter a valid mail address."
+msgstr "Veuillez entrez une addresse e-mail valide."
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Please fill all mandatory fields."
+msgstr "Merci de remplir tous les champs obligatoires."
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_price
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Price"
+msgstr "Prix"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_gift_price
+msgid "Price per gift"
+msgstr "Prix par portion"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_product_id
+#: model:ir.ui.view,arch_db:gifts.gift_product_view_form
+msgid "Product"
+msgstr "Produit"
+
+#. module: gifts
+#: model:ir.actions.act_window,name:gifts.gift_product_action
+#: model:ir.ui.menu,name:gifts.gift_product_menu
+#: model:ir.ui.view,arch_db:gifts.gift_product_tree_view
+msgid "Products"
+msgstr "Produits"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Published"
+msgstr "Publié"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_qty_available
+msgid "Quantity available"
+msgstr "Quantité disponible"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+#: model:ir.ui.view,arch_db:gifts.gift_gift_search_view
+msgid "Search Gifts"
+msgstr "Cherchez les cadeaux"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Search Products"
+msgstr "Cherchez les produits"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_followup_view_form
+msgid "Send"
+msgstr "Envoyer"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_date
+msgid "Send Date"
+msgstr "Date d'envoi"
+
+#. module: gifts
+#: selection:gift.followup,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+msgid "Sent"
+msgstr "Envoyé"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_account_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_sequence
+msgid "Sequence order"
+msgstr "Ordre de séquence"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_image_small
+msgid "Small-sized image"
+msgstr "Image petite"
+
+#. module: gifts
+#: selection:gift.followup,mail_type:0
+msgid "Snail mail"
+msgstr "Courrier postal"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_state
+#: model:ir.model.fields,field_description:gifts.field_gift_product_state
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "State"
+msgstr "État"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Street"
+msgstr "Rue"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Street 2..."
+msgstr "Rue (2)"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "Street..."
+msgstr "Rue"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.thanks
+msgid "Thank you!"
+msgstr "Merci!"
+
+#. module: gifts
+#: selection:gift.followup,state:0
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+msgid "To Do"
+msgstr "À faire"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_followup_price
+msgid "Total"
+msgstr "Total"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.product_details_list
+msgid "Total price:"
+msgstr "Prix total:"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_product_unlimited
+msgid "Unlimited"
+msgstr "Illimité"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Unpublished"
+msgstr "Non publié"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gift_followup_search_view
+#: model:ir.ui.view,arch_db:gifts.gift_product_search_view
+msgid "Unread Messages"
+msgstr "Messages non-lus"
+
+#. module: gifts
+#: model:ir.model.fields,field_description:gifts.field_gift_gift_price
+msgid "Value"
+msgstr "Valeur"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_popover
+msgid "View List"
+msgstr "Voir la liste"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "Write a few words..."
+msgstr "Écrivez quelques mots..."
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid ""
+"You don't have anything in your list yet!\n"
+"                            Have a look at"
+msgstr ""
+"Votre liste est vide!\n"
+"                            Jettez un oeil à"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart_popover
+msgid "Your list is empty!"
+msgstr "Votre liste est vide!"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+msgid "ZIP"
+msgstr "Code Postal"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gifts
+msgid "create some"
+msgstr "en créer"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.gifts
+msgid "to see the magic in action!"
+msgstr "pour voir la magie opérer!"
+
+#. module: gifts
+#: model:ir.ui.view,arch_db:gifts.cart
+msgid "what's available"
+msgstr "ce qui est disponible"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="gift_followup_report"
+        model="gift.followup"
+        string="Followups"
+        report_type="qweb-pdf"
+        name="gifts.report_followup"
+        multi="True"
+    />
+</odoo>

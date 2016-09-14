@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gifter_1" model="res.partner">
+        <field name="name">Damien</field>
+        <field name="email">damien@bouvy.com</field>
+        <field name="street">Chaussée de Namur 40</field>
+        <field name="city">Grand-Rosière</field>
+        <field name="zip">1367</field>
+        <field name="country_id" ref="base.be"/>
+        <field eval="[(6, 0, [ref('gifts.gift_category')])]" name="category_id"/>
+    </record>
+    
+    <record id="gifter_2" model="res.partner">
+        <field name="name">Noël Flantier</field>
+        <field name="email">noel@flantier.com</field>
+        <field eval="[(6, 0, [ref('gifts.gift_category')])]" name="category_id"/>
+    </record>
+    
+    <record id="gift_product_demo_1" model="gift.product">
+        <field name="name">Wild Thin Bouncer</field>
+        <field name="price">60</field>
+        <field name="website_published">True</field>
+        <field name="image" type="base64" file="gifts/static/img/product_1.jpg"/>
+    </record>
+        
+    <record id="gift_gift_demo_11" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_1"/>
+        <field name="price">60</field>
+    </record>
+    
+    <record id="gift_product_demo_2" model="gift.product">
+        <field name="name">Sleep safe, sleep tight</field>
+        <field name="price">25</field>
+        <field name="website_published">True</field>
+        <field name="image" type="base64" file="gifts/static/img/product_2.jpg"/>
+    </record>
+    
+    <record id="gift_gift_demo_21" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_2"/>
+        <field name="price">25</field>
+    </record>
+    
+    <record id="gift_product_demo_3" model="gift.product">
+        <field name="name">Breastfeeding pillow</field>
+        <field name="price">35</field>
+        <field name="image" type="base64" file="gifts/static/img/product_3.jpg"/>
+    </record>
+    
+    <record id="gift_gift_demo_31" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_3"/>
+        <field name="price">35</field>
+    </record>
+    
+    <record id="gift_product_demo_4" model="gift.product">
+        <field name="name">Carseat</field>
+        <field name="price">130</field>
+        <field name="website_published">True</field>
+        <field name="allow_split">True</field>
+        <field name="split_number">4</field>
+        <field name="image" type="base64" file="gifts/static/img/product_4.jpg"/>
+    </record>
+    
+    <record id="gift_gift_demo_41" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_4"/>
+        <field name="price">32.5</field>
+        <field name="gifter_id" ref="gifter_1"/>
+    </record>
+    
+    <record id="gift_gift_demo_42" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_4"/>
+        <field name="price">32.5</field>
+    </record>
+    
+    <record id="gift_gift_demo_43" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_4"/>
+        <field name="price">32.5</field>
+    </record>
+    
+    <record id="gift_gift_demo_44" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_4"/>
+        <field name="price">32.5</field>
+    </record>
+    
+    <record id="gift_product_demo_5" model="gift.product">
+        <field name="name">Diaper Bag</field>
+        <field name="price">90</field>
+        <field name="website_published">True</field>
+        <field name="allow_split">True</field>
+        <field name="split_number">2</field>
+        <field name="image" type="base64" file="gifts/static/img/product_5.jpg"/>
+    </record>
+    
+    <record id="gift_gift_demo_51" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_5"/>
+        <field name="price">45</field>
+        <field name="gifter_id" ref="gifter_1"/>
+    </record>
+    
+    <record id="gift_gift_demo_52" model="gift.gift">
+        <field name="product_id" ref="gift_product_demo_5"/>
+        <field name="price">45</field>
+        <field name="gifter_id" ref="gifter_2"/>
+    </record>
+    
+    <record id="gift_followup_1" model="gift.followup">
+        <field name="gifter_id" ref="gifter_1"/>
+        <field name="gift_ids" eval="[(4, ref('gifts.gift_gift_demo_41'), False), (4, ref('gifts.gift_gift_demo_51'), False)]"/>
+        <field name="gift_date" eval="(DateTime.now() - timedelta(days=2))"/>
+        <field name="mail_type">snail_mail</field>
+        <field name="account_id" ref="gifts.default_account"/>
+        <field name="message">Enjoy these, you've earned them!</field>
+    </record>
+    
+    <record id="gift_followup_2" model="gift.followup">
+        <field name="gifter_id" ref="gifter_2"/>
+        <field name="gift_ids" eval="[(4, ref('gifts.gift_gift_demo_52'), False)]"/>
+        <field name="gift_date" eval="(DateTime.now())"/>
+        <field name="mail_type">email</field>
+        <field name="account_id" ref="gifts.default_account"/>
+        <field name="message">She's so cute with her little fingers and all!</field>
+    </record>
+</odoo>

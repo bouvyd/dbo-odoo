@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gift_product_user,Gift Product - User,model_gift_product,base.group_user,1,1,1,1
+access_gift_product_public,Gift Product - Public,model_gift_product,,1,0,0,0
+access_gift_gift_user,Gift - User,model_gift_gift,base.group_user,1,1,1,1
+access_gift_gift_public,Gift - Public,model_gift_gift,,1,0,0,0
+access_gift_followup_user,Gift Followup - User,model_gift_followup,base.group_user,1,1,1,1
+access_gift_account_user,Gift Account - User,model_gift_account,base.group_user,1,1,1,1
+access_gift_account_public,Gift Account - Public,model_gift_account,,1,0,0,0

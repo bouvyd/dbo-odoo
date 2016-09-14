@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_followup">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>
+                                <span>Snail Mail Announcements</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <th>Name</th><th>Address</th>
+                                </tr>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr t-if="o.mail_type == 'snail_mail'">
+                                        <td t-esc="o.display_name"/>
+                                        <td>
+                                            <span t-esc="o.gifter_id.street"/><br/>
+                                            <div t-if="o.gifter_id.street2">
+                                                <span t-esc="o.gifter_id.street2"/><br/>
+                                            </div>
+                                            <span t-esc="o.gifter_id.zip"/> <span t-esc="o.gifter_id.city"/><br/>
+                                            <span t-esc="o.gifter_id.country_id.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>
+                                <span>E-mail Announcements</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <th>Name</th><th>Address</th>
+                                </tr>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr t-if="o.mail_type == 'snail_mail'">
+                                        <td t-esc="o.display_name"/>
+                                        <td t-esc="o.gifter_id.email"/>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

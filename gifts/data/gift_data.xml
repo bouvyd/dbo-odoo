@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="default_account" model="gift.account">
+            <field name="name">Bank Account</field>
+            <field name="payment_msg"><![CDATA[<html>
+            <head></head>
+            <body>
+                <ul>
+                    <li>IBAN:</li>
+                    <li>BIC:</li>
+                    <li>Communication: Simply state your name</li>
+                </ul>
+            </body>
+            </html>
+            ]]></field>
+            <field name="sequence" eval="20"/>
+        </record>
+        
+        <record id="mail_template_followup" model="mail.template">
+            <field name="name">Gift Followup - Thanks</field>
+            <field name="subject">Many thanks for your gift!</field>
+            <field name="partner_to">${object.gifter_id.id}</field>
+            <field name="model_id" ref="gifts.model_gift_followup"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.gifter_id.lang}</field>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[<html>
+            <head></head>
+            <body>
+                <p>Hi ${object.gifter_id.name},</p>
+                <p>Your help is greatly appreciated.</p>
+                % if object.account_id:
+                    <p>Here's the payment information:</p>
+                    Amount: ${object.price} ${object.gifter_id.company_id.currency_id.symbol}
+                    ${object.account_id.payment_msg|safe}
+                % endif
+                <p>Love,</p>
+            </body>
+            </html>
+            ]]>
+            </field>
+        </record>
+    </data>
+    
+    <record id="menu_gifts" model="website.menu">
+        <field name="name">Gifts</field>
+        <field name="url">/gifts</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">15</field>
+    </record>
+    
+    <record id="gift_category" model="res.partner.category">
+        <field name="name">Gift giver</field>
+        <field name="color" eval="5"/>
+    </record>
+
+</odoo>

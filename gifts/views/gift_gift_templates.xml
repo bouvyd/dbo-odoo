@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel='stylesheet' href='/gifts/static/src/less/gifts_frontend.less'/>
+            <script type="text/javascript" src="/gifts/static/src/js/gifts_frontend.js"></script>
+        </xpath>
+    </template>
+
+    
+    <template id="header" inherit_id="website.layout" name="Header Gift - My Cart">
+      <xpath expr="//header//ul[@id='top_menu']/li" position="before">
+          <t t-set="cart" t-value="request.session.get('gifts_cart', {})"/>
+          <li>
+              <a href="/gifts/cart">
+                  <i class="fa fa-gift"></i>
+                  My list <sup t-attf-class="label label-primary" t-esc="sum([qty for p,qty in cart.iteritems()])"/>
+              </a>
+          </li>
+      </xpath>
+    </template>
+
+    <template id="gifts" name="Gifts">
+        <t t-call="website.layout">
+            <t t-set="cart" t-value="request.session.get('gifts_cart', {})"/>
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 gifts-content">
+                            <div class="text-center"><h1>Gifts</h1></div>
+                            <div class="oe_structure"/>
+                            <div class="text-center text-lightgray" t-if="not products">
+                                <em>
+                                    It seems like you don't have any products yet.
+                                    Go <a href="/web">create some</a> to see the magic in action!
+                                </em>
+                            </div>
+                            <div class="product-grid">
+                                <t t-foreach="products.filtered(lambda p: p.state != 'done')" t-as="product">
+                                    <t t-call="gifts.product_detail"/>
+                                </t>
+                            </div>
+                            <div class="oe_structure"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="product_done" name="Display Offered Gifts" customize_show="True" inherit_id="gifts.gifts">
+        <xpath expr="//div[contains(@class, 'gifts-content')]" position="inside">
+            <t t-set="offered_products" t-value="products.filtered(lambda p: p.state == 'done')"/>
+            <h2 class="text-center" t-if="offered_products">Already offered</h2>
+            <div class="product-grid">
+                <t t-foreach="offered_products" t-as="product">
+                    <t t-call="gifts.product_detail"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    
+    <template id="product_detail" name="Product Details">
+        <div t-att-class="'product product-unpublished' if not (product.website_published or product.qty_available) else 'product'">
+            <div class="product-image">
+                <a t-attf-href="/gifts/product/#{product.id}">
+                    <span itemprop="image" t-field="product.image"
+                          t-field-options='{"widget": "image", "class": "gift_detail_image", "alt-field": "name"}'/>
+                </a>
+            </div>
+            <div class="product-info">
+                <a t-attf-href="/gifts/product/#{product.id}">
+                    <h4 t-esc="product.name"/>
+                </a>
+                <t t-call="gifts.product_details_list"/>
+                <div class="product-btns text-right">
+                    <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
+                        <a class="btn btn-xs btn-block btn-primary" t-attf-href="/gifts/add/#{product.id}">
+                            <i class="fa fa-gift"/> Add to list
+                        </a>
+                    </t>
+                    <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
+                        <a class="btn btn-xs btn-block btn-primary" disabled="disabled">
+                            <i class="fa fa-check"/> Already in list
+                        </a>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="product_details_page" name="Product Details Edition">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="page-header"><span t-esc="product.name"/>
+                                <div id="website_published_button" class="pull-right"
+                                     groups="base.group_website_publisher">
+                                    <t t-call="website.publish_management">
+                                      <t t-set="object" t-value="product"/>
+                                      <t t-set="publish_edit" t-value="True"/>
+                                      <t t-set="action" t-value="'gifts.gift_product_action'"/>
+                                    </t>
+                                </div>
+                            </h2>
+                        </div>
+                        <t t-call="gifts.product_details">
+                            <div class="text-center">
+                                <a class="btn btn-lg btn-primary mb16" t-attf-href="/gifts/add/#{product.id}">
+                                    <i class="fa fa-gift"/> Add to list
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="product_more_info" name="More Info Popup" customize_show="True" inherit_id="gifts.product_detail">
+        <xpath expr="//div[contains(@t-att-class,'product')]" position="replace">
+            
+            <div t-att-class="'product product-unpublished' if (not product.website_published or not bool(product.qty_available)) else 'product'">
+                <div class="product-image">
+                    <a t-attf-href="#" data-toggle="modal" t-attf-data-target="#product-modal-#{product.id}">
+                        <span itemprop="image" t-field="product.image"
+                              t-field-options='{"widget": "image", "class": "gift_detail_image", "alt-field": "name"}'/>
+                    </a>
+                </div>
+                <div class="product-info">
+                    <a t-attf-href="#" data-toggle="modal" t-attf-data-target="#product-modal-#{product.id}">
+                        <h4 t-esc="product.name"/>
+                    </a>
+                    <t t-call="gifts.product_details_list"/>
+                    <div class="product-btns text-right">
+                        <div class="modal fade text-left" role="dialog" t-attf-id="product-modal-#{product.id}" tabindex="-1">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                            <span aria-hidden="true">&amp;times;</span>
+                                        </button>
+                                        <h4 t-esc="product.name"/>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <t t-call="gifts.product_details">&amp;nbsp;</t>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-right">
+                                        <div id="website_published_button" class="pull-left"
+                                             groups="base.group_website_publisher">
+                                            <t t-call="website.publish_management">
+                                              <t t-set="object" t-value="product"/>
+                                              <t t-set="publish_edit" t-value="True"/>
+                                              <t t-set="action" t-value="'gifts.gift_product_action'"/>
+                                            </t>
+                                        </div>
+                                        <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
+                                            <a class="btn btn-primary" t-attf-href="/gifts/add/#{product.id}">
+                                                <i class="fa fa-gift"/> Add to list
+                                            </a>
+                                        </t>
+                                        <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
+                                            <a class="btn btn-primary" disabled="disabled">
+                                                <i class="fa fa-check"/> Already in list
+                                            </a>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
+                            <a class="btn btn-xs btn-block btn-primary" t-attf-href="/gifts/add/#{product.id}">
+                                <i class="fa fa-gift"/> Add to list
+                            </a>
+                        </t>
+                        <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
+                            <button class="btn btn-xs btn-block btn-primary" disabled="disabled">
+                                <i class="fa fa-check"/> Already in list
+                            </button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    
+    <template id="product_details" name="Product Details">
+        <div class="col-md-8">
+            <div t-field="product.description_html"/>
+        </div>
+        <div class="col-md-4">
+            <div itemprop="image" t-field="product.image" t-options="{'widget': 'image', 'class': 'product_image', 'alt-field': 'name'}"/>
+            <t t-call="gifts.product_details_list"/>
+            <t t-raw="0"/>
+        </div>
+    </template>
+    
+    <template id="product_details_list" name="Product Details List">
+        <ul class="list-unstyled" t-if="product.qty_available">
+            <li>Available: <span t-esc="'Unlimited' if product.unlimited else product.qty_available"/></li>
+            <li t-if="product.allow_split">
+                Total price: 
+                <span t-esc="product.price"
+                      t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+            </li>
+            <li>
+                Gift price:
+                <span t-esc="product.gift_price"
+                      t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+            </li>
+        </ul>
+    </template>
+    
+    <template id="cart" name="Cart">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                <div class="row" t-if="cart_products">
+                    <div class="col-md-12">
+                        <h2 class="page-header">My List</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-border table-gifts">
+                            <thead>
+                                <th class="col-md-1">Gift</th>
+                                <th class="col-md-5"></th>
+                                <th class="col-md-3 text-right">Price</th>
+                                <th class="col-md-3 text-right">Subtotal</th>
+                            </thead>
+                            <tfoot>
+                                <td/>
+                                <td/>
+                                <td class="bg-lighter text-right"><b>Total</b></td>
+                                <td class="bg-lighter text-right">
+                                    <b t-esc="sum([p['product'].gift_price * p['qty'] for p in cart_products])"
+                                       t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                </td>
+                            </tfoot>
+                            <t t-foreach="cart_products" t-as="product">
+                                <tr>
+                                    <td>
+                                        <span t-field="product['product'].image_small"
+                                              t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="product['product'].name"/>
+                                        <span t-if="product['qty'] &gt; 1"> (x<t t-esc="product['qty']"/>)</span>
+                                    </td>
+                                    <td class="text-right"><t t-esc="product['product'].gift_price"
+                                        t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="product['product'].gift_price * product['qty']"
+                                            t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <div class="clearfix">
+                            <a href="/gifts/cart/empty" class="btn btn-danger pull-right">Empty List</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <t t-if="errors">
+                            <div t-if="errors.get('mail_invalid')" class="alert alert-danger">
+                                Please enter a valid mail address.
+                            </div>
+                            <div t-if="errors.get('missing')" class="alert alert-danger">
+                                Please fill all mandatory fields.
+                            </div>
+                            <div t-if="errors.get('gift_conflict')" class="alert alert-info">
+                                It seems someone ordered one of the gift you wanted before you.
+                                It has been removed from your list; please have a look before confirming!
+                            </div>
+                        </t>
+                        <form class="form-horizontal" method="post">
+                            <div t-attf-class="form-group #{'name' in errors.get('missing', []) and 'has-error' or ''}">
+                                <label for="name" class="col-sm-3 control-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="char" class="form-control" name="name" placeholder="First &amp; Last Names" t-att-value="values.get('name')"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{'email' in errors.get('missing', []) and 'has-error' or ''}">
+                                <label for="email" class="col-sm-3 control-label">E-mail</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" name="email" placeholder="E-mail" t-att-value="values.get('email')"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{'message' in errors.get('missing', []) and 'has-error' or ''}">
+                                <label for="message" class="col-sm-3 control-label">Message</label>
+                                <div class="col-sm-9">
+                                    <textarea rows="3" class="form-control" name="message" placeholder="Write a few words..."  t-att-value="values.get('message')"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <input type="checkbox" name="snail_mail" t-att-checked="values.get('snail_mail')"/>
+                                    <label for="snail_mail" class="control-label">Get the announcement by snail mail</label>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group address hidden #{set(errors.get('missing', [])) &amp; set(['street', 'city', 'zip_code']) and 'has-error' or ''}">
+                                <label for="street" class="col-sm-3 control-label">Address</label>
+                                <div class="col-sm-9">
+                                    <input type="char" class="form-control mb4" name="street" placeholder="Street" t-att-value="values.get('street')"/>
+                                    <input type="char" class="form-control mb4" name="street2" placeholder="Street 2..." t-att-value="values.get('street2')"/>
+                                    <input type="char" class="form-control mb4" name="zip_code" placeholder="ZIP" t-att-value="values.get('zip_code')"/>
+                                    <input type="char" class="form-control mb4" name="city" placeholder="City" t-att-value="values.get('city')"/>
+                                    <select id="country_id" name="country_id" class="form-control">
+                                        <t t-set="default_country_id" t-value="values.get('country_id')and int(values.get('country_id')) or request.env.user.sudo().company_id.country_id.id"/>
+                                        <option value="">Country</option>
+                                        <t t-foreach="countries" t-as="c">
+                                            <option t-att-value="c['id']" t-att-selected="c['id'] == default_country_id">
+                                                <t t-esc="c['name']" />
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="msg-confirm" class="col-sm-9 col-sm-offset-3 well">
+                                A confirmation e-mail will be sent with payment details once you confirm your gift list.
+                            </div>
+                            <div class="text-right">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <button class="btn btn-xl btn-primary" type="submit"><i class="fa fa-check"/>Offer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" t-if="not cart_products">
+                    <div class="col-md-12">
+                        <h2 class="page-header">My List</h2>
+                        <div class="well">
+                            You don't have anything in your list yet!
+                            Have a look at <a href="/gifts">what's available</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" t-if="cart_products">
+                    <div class="col-md-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="cart_play_game" name="Guessing game" customize_show="True" inherit_id="gifts.cart">
+        <xpath expr="//div[@id='msg-confirm']" position="before">
+            <div class="oe_structure"/>
+            <div t-attf-class="form-group #{'date' in errors.get('missing', []) and 'has-error' or ''}">
+                <label for="date" class="col-sm-3 control-label">Guess the Date</label>
+                <div class="col-sm-9">
+                    <input type="date" class="form-control" name="date" placeholder="Pick a date" t-att-value="values.get('date')"/>
+                </div>
+            </div>
+            <div t-attf-class="form-group #{'baby_name' in errors.get('missing', []) and 'has-error' or ''}">
+                <label for="baby_name" class="col-sm-3 control-label">Guess a Name</label>
+                <div class="col-sm-9">
+                    <input type="char" class="form-control" name="baby_name" placeholder="Pick a name" t-att-value="values.get('baby_name')"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="cart_popover" name="Cart Popover">
+          <div t-if="not cart_products" class="well well-lg">
+              Your list is empty!
+          </div>
+          <t t-if="cart_products">
+            <t t-foreach="cart_products" t-as="product">
+              <div class='row mb8' >
+                <div class='col-xs-3'><span t-field="product['product'].image_small"
+                                  t-field-options='{"widget": "image", "class": "img-rounded"}'/></div>
+                <div class='col-xs-9 text-right'>
+                    <span>
+                        <t-esc t-esc="product['product'].name"/> - 
+                        <span t-field="product['product'].gift_price"
+                              t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                        <small t-if="product['qty'] &gt; 1">(x<t t-esc="product['qty']"/>)</small>
+                    </span>
+                </div>
+              </div>
+            </t>
+
+          <div class="text-center well well-sm">
+            <span class="h5">
+              <b>Total:</b> <t t-esc="sum([p['qty'] * p['product'].gift_price for p in cart_products])"
+                               t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+            </span>
+          </div>
+          <div class="text-center" t-if="cart_products">
+              <a href="/gifts/cart/empty" class="btn btn-sm btn-danger">Empty List</a>
+              <a  href="/gifts/cart" class="btn btn-sm btn-primary">View List</a>
+          </div>
+        </t>
+    </template>
+    
+    <template id="thanks" name="Thanks">
+        <t t-call="website.layout">
+            <t t-set="cart" t-value="request.session.get('gifts_cart', {})"/>
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center"><h1>Thank you!</h1></div>
+                        </div>
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="alert alert-info">
+                                No need to print this, we'll send you a copy of the payment details to the email address you provided as well.
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Payment Details</div>
+                                <div class="panel-body">
+                                    <div class="text-center well well-sm">
+                                      <span class="h5">
+                                        <b>Total:</b> <t t-esc="sum([p['qty'] * p['product'].gift_price for p in cart_products])"
+                                                         t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                      </span>
+                                    </div>
+                                    <div t-raw="payment_msg"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="oe_structure"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

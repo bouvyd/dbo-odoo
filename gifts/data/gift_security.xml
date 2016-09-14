@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gift_product_public" model="ir.rule">
+        <field name="name">Gift Product - Website Public</field>
+        <field  name="model_id" ref="model_gift_product"/>
+        <field name="domain_force">[('website_published','=',True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public'))]"/>
+    </record>
+    
+    <record id="gift_gift_public" model="ir.rule">
+        <field name="name">Gift - Website Public</field>
+        <field  name="model_id" ref="model_gift_gift"/>
+        <field name="domain_force">[('product_id.website_published','=',True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public'))]"/>
+    </record>
+
+</odoo>
