@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_oauth_root" sequence="20" name="OAuth2 Provider"/>
+    <menuitem id="menu_oauth_access" name="Access Control" sequence="10" parent="menu_oauth_root"/>
+    <menuitem id="menu_oauth_client" action="oauth_client_action" sequence="10" parent="menu_oauth_access"/>
+    <menuitem id="menu_oauth_token" action="oauth_token_action" sequence="20" parent="menu_oauth_access"/>
+    <menuitem id="menu_oauth_auth_code" action="oauth_auth_code_action" sequence="30" parent="menu_oauth_access"/>
+    <menuitem id="menu_oauth_configuration" name="Configuration" sequence="20" parent="menu_oauth_root"/>
+    <menuitem id="menu_oauth_settings" action="oauth_config_settings_action" sequence="10" parent="menu_oauth_configuration"/>
+    <menuitem id="menu_oauth_scope" action="oauth_scope_action" sequence="20" parent="menu_oauth_configuration"/>
+</odoo>

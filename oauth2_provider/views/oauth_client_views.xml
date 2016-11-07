@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="oauth_client_action" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="res_model">oauth.client</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="oauth_client_view_list" model="ir.ui.view">
+        <field name="name">oauth.client.list</field>
+        <field name="model">oauth.client</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="grant_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="oauth_client_view_form" model="ir.ui.view">
+        <field name="name">oauth.client.form</field>
+        <field name="model">oauth.client</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                confirm="This will invalidate all tokens and authorization codes for this client. Do you want to proceed?"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "active"}'/>
+                        </button>
+                    </div>
+                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium"}'/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Client Name"/></h1>
+                        <h4>Managed by <field name="user_id" class="oe_inline"/></h4>
+                    </div>
+                    <group>
+                        <field name="client_id"/>
+                        <field name="grant_type"/>
+                        <field name="scope_ids" widget="many2many_tags" no_create="true"/>
+                        <field name="scopes"/>
+                        <field name="redirect_uris"/>
+                        <field name="default_redirect_uri"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="oauth_scope_action" model="ir.actions.act_window">
+        <field name="name">Scopes</field>
+        <field name="res_model">oauth.scope</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="oauth_scope_list" model="ir.ui.view">
+        <field name="name">oauth.scope.list</field>
+        <field name="model">oauth.scope</field>
+        <field name="arch" type="xml">
+            <tree create="false" editable="bottom">
+                <field name="name" readonly="1"/>
+                <field name="default" readonly="1"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
