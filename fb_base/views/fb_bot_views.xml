@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fb_bot_action" model="ir.actions.act_window">
+        <field name="name">Facebook Messenger Bots</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fb.bot</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="fb_bot_view_tree" model="ir.ui.view">
+        <field name="name">fb.bot.tree</field>
+        <field name="model">fb.bot</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="url"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fb_bot_view_form" model="ir.ui.view">
+        <field name="name">fb.bot.form</field>
+        <field name="model">fb.bot</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <label for="url"/>
+                        <span>&lt;base_url&gt;/fb-bot/<field name="url" nolabel="1" class="oe_inline"/>/</span>
+                        <field name="verify_token"/>
+                        <field name="page_token"/>
+                        <field name="user_link"/>
+                        <field name="greeting_text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <menuitem id="menu_fb_bot" string="Facebook Bots"
+              action="fb_bot_action" parent="base.menu_administration"
+              sequence="30"/>
+</odoo>
