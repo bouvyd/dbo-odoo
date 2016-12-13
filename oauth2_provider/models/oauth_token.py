@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
-from uuid import uuid4
+from oauthlib.common import generate_token
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from const import DEFAULT_TOKEN_VALIDITY, DEFAULT_AUTH_CODE_VALIDITY
 
@@ -17,6 +17,10 @@ class AbstractToken(models.AbstractModel):
     IR_PARAM_KEY = False
 
     @api.model
+    def _default_token(self):
+        return generate_token()
+
+    @api.model
     def _default_expiration_time(self):
         expiration_delta = int(self.env['ir.config_parameter'].get_param(self.IR_PARAM_KEY, default=self.EXPIRATION_TIME))
         return fields.Datetime.to_string(datetime.now() + timedelta(minutes=expiration_delta))
@@ -27,7 +31,7 @@ class AbstractToken(models.AbstractModel):
     scope_ids = fields.Many2many("oauth.scope", string="Scopes",
                                  help="Scopes available to the client. At least one should be set.")
     scopes = fields.Char(string="Scopes (text)", help="Textual representation of scopes for easier scope testing.",
-                         compute="_compute_scope_text", store=True, readonly=True)
+                         compute="_compute_scope_text", inverse="_inverse_scope_text", store=True)
     expiration_time = fields.Datetime(string="Expiration Time", required=True, default=_default_expiration_time)
 
     @api.depends('scope_ids', 'scope_ids.name')
@@ -40,6 +44,13 @@ class AbstractToken(models.AbstractModel):
         """
         for token in self:
             token.scopes = ' '.join(token.scope_ids.mapped('name'))
+
+    def _inverse_scope_text(self):
+        for client in self:
+            scope_ids = self.env['oauth.scope'].search([('name', 'in', client.scopes.split())])
+            if len(client.scopes.split()) != len(scope_ids):
+                raise ValidationError('Invalid scopes')
+            client.scope_ids = scope_ids
 
     @api.depends('expiration_time')
     def _compute_active(self):
@@ -84,8 +95,8 @@ class OauthToken(models.Model):
     EXPIRATION_TIME = DEFAULT_TOKEN_VALIDITY
     IR_PARAM_KEY = 'oauth2_provider.token_expiration_time'
 
-    access_token = fields.Char(string="Access Token", default=lambda s: uuid4(), required=True)
-    refresh_token = fields.Char(string="Refresh Token", default=lambda s: uuid4(), required=True)
+    access_token = fields.Char(string="Access Token", default=lambda s: s._default_token(), required=True)
+    refresh_token = fields.Char(string="Refresh Token", default=lambda s: s._default_token(), required=True)
 
     _sql_constraints = [
         ('uniq_access_token', 'unique(access_token)', 'Access Token must be unique.'),
@@ -102,6 +113,11 @@ class OauthAuthCode(models.Model):
     EXPIRATION_TIME = DEFAULT_AUTH_CODE_VALIDITY
     IR_PARAM_KEY = 'oauth2_provider.auth_code_expiration_time'
 
-    authorization_code = fields.Char(string="Authorization Code", default=lambda s: uuid4(), required=True)
+    authorization_code = fields.Char(string="Authorization Code", default=lambda s: s._default_token(), required=True)
+    redirect_uri = fields.Char(string="Redirect URI", required=True)
 
     _sql_constraints = [('uniq_authorization_code', 'unique(authorization_code)', 'Authorization Code must be unique.')]
+
+    def redirect_uri_allowed(self, uri):
+        self.ensure_one()
+        return uri == self.redirect_uri

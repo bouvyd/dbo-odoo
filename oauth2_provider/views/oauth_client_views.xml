@@ -40,6 +40,7 @@
                     </div>
                     <group>
                         <field name="client_id"/>
+                        <field name="client_secret"/>
                         <field name="grant_type"/>
                         <field name="scope_ids" widget="many2many_tags" no_create="true"/>
                         <field name="scopes"/>
