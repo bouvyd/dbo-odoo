@@ -134,7 +134,7 @@
 
     <template id="product_details_list" name="Product Details List">
         <ul class="list-unstyled" t-if="product.qty_available">
-            <li>Available: <span t-esc="'Unlimited' if product.unlimited else product.qty_available"/></li>
+            <li>Available: <span t-if="not product.unlimited" t-esc="product.qty_available"/><span t-if="product.unlimited">Unlimited</span></li>
             <li t-if="product.allow_split">
                 Total price: 
                 <span t-esc="product.price"
