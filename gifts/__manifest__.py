@@ -2,16 +2,16 @@
 
 {
     'name': 'Gifts',
-    'version': '1.0',
+    'version': '1.1',
     'author': 'Damien Bouvy',
     'category': 'Gifts',
     'website': 'https://www.damienbouvy.be',
-    'summary': 'Gift Lists management',
+    'summary': 'Gift List management',
     'depends': ['web', 'mail', 'website'],
     'description': """
 Gift Lists management
-==============================================
-Yo man!
+=====================
+Create and managea gift list for your newborn child.
 """,
     "data": [
         "data/gift_data.xml",

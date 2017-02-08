@@ -14,7 +14,7 @@
           <li>
               <a href="/gifts/cart">
                   <i class="fa fa-gift"></i>
-                  My list <sup t-attf-class="label label-primary" t-esc="sum([qty for p,qty in cart.iteritems()])"/>
+                  My list <sup t-attf-class="label label-primary oe_gift_cart_count" t-esc="sum([qty for p,qty in cart.iteritems()])"/>
               </a>
           </li>
       </xpath>
@@ -24,7 +24,7 @@
         <t t-call="website.layout">
             <t t-set="cart" t-value="request.session.get('gifts_cart', {})"/>
             <div id="wrap">
-                <div class="container">
+                <div class="container oe_gifts">
                     <div class="row">
                         <div class="col-md-12 gifts-content">
                             <div class="text-center"><h1>Gifts</h1></div>
@@ -75,7 +75,7 @@
                 <t t-call="gifts.product_details_list"/>
                 <div class="product-btns text-right">
                     <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
-                        <a class="btn btn-xs btn-block btn-primary" t-attf-href="/gifts/add/#{product.id}">
+                        <a class="btn btn-xs btn-block btn-primary oe_gift_add" t-attf-href="/gifts/add/#{product.id}" t-att-data-product-id="product.id">
                             <i class="fa fa-gift"/> Add to list
                         </a>
                     </t>
@@ -91,9 +91,10 @@
     
     <template id="product_details_page" name="Product Details Edition">
         <t t-call="website.layout">
+            <t t-set="cart" t-value="request.session.get('gifts_cart', {})"/>
             <div id="wrap">
-                <div class="container">
-                    <div class="row">
+                <div class="container oe_gifts">
+                    <div class="row product">
                         <div class="col-md-12">
                             <h2 class="page-header"><span t-esc="product.name"/>
                                 <div id="website_published_button" class="pull-right"
@@ -106,99 +107,31 @@
                                 </div>
                             </h2>
                         </div>
-                        <t t-call="gifts.product_details">
-                            <div class="text-center">
-                                <a class="btn btn-lg btn-primary mb16" t-attf-href="/gifts/add/#{product.id}">
-                                    <i class="fa fa-gift"/> Add to list
-                                </a>
+                        <div class="col-md-8">
+                            <div t-field="product.description_html"/>
+                        </div>
+                        <div class="col-md-4 product-image">
+                            <div itemprop="image" t-field="product.image" t-options="{'widget': 'image', 'class': 'product_image', 'alt-field': 'name'}"/>
+                            <t t-call="gifts.product_details_list"/>
+                            <div class="product-btns text-right">
+                                <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
+                                    <a class="btn btn-xs btn-block btn-primary oe_gift_add" t-attf-href="/gifts/add/#{product.id}" t-att-data-product-id="product.id">
+                                        <i class="fa fa-gift"/> Add to list
+                                    </a>
+                                </t>
+                                <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
+                                    <a class="btn btn-xs btn-block btn-primary" disabled="disabled">
+                                        <i class="fa fa-check"/> Already in list
+                                    </a>
+                                </t>
                             </div>
-                        </t>
+                        </div>
                     </div>
                 </div>
             </div>
         </t>
     </template>
-    
-    <template id="product_more_info" name="More Info Popup" customize_show="True" inherit_id="gifts.product_detail">
-        <xpath expr="//div[contains(@t-att-class,'product')]" position="replace">
-            
-            <div t-att-class="'product product-unpublished' if (not product.website_published or not bool(product.qty_available)) else 'product'">
-                <div class="product-image">
-                    <a t-attf-href="#" data-toggle="modal" t-attf-data-target="#product-modal-#{product.id}">
-                        <span itemprop="image" t-field="product.image"
-                              t-field-options='{"widget": "image", "class": "gift_detail_image", "alt-field": "name"}'/>
-                    </a>
-                </div>
-                <div class="product-info">
-                    <a t-attf-href="#" data-toggle="modal" t-attf-data-target="#product-modal-#{product.id}">
-                        <h4 t-esc="product.name"/>
-                    </a>
-                    <t t-call="gifts.product_details_list"/>
-                    <div class="product-btns text-right">
-                        <div class="modal fade text-left" role="dialog" t-attf-id="product-modal-#{product.id}" tabindex="-1">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                                            <span aria-hidden="true">&amp;times;</span>
-                                        </button>
-                                        <h4 t-esc="product.name"/>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <t t-call="gifts.product_details">&amp;nbsp;</t>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer text-right">
-                                        <div id="website_published_button" class="pull-left"
-                                             groups="base.group_website_publisher">
-                                            <t t-call="website.publish_management">
-                                              <t t-set="object" t-value="product"/>
-                                              <t t-set="publish_edit" t-value="True"/>
-                                              <t t-set="action" t-value="'gifts.gift_product_action'"/>
-                                            </t>
-                                        </div>
-                                        <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
-                                            <a class="btn btn-primary" t-attf-href="/gifts/add/#{product.id}">
-                                                <i class="fa fa-gift"/> Add to list
-                                            </a>
-                                        </t>
-                                        <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
-                                            <a class="btn btn-primary" disabled="disabled">
-                                                <i class="fa fa-check"/> Already in list
-                                            </a>
-                                        </t>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <t t-if="product.unlimited or cart.get(product.id, 0) != product.qty_available">
-                            <a class="btn btn-xs btn-block btn-primary" t-attf-href="/gifts/add/#{product.id}">
-                                <i class="fa fa-gift"/> Add to list
-                            </a>
-                        </t>
-                        <t t-if="not product.unlimited and cart.get(product.id, 0) == product.qty_available and product.qty_available">
-                            <button class="btn btn-xs btn-block btn-primary" disabled="disabled">
-                                <i class="fa fa-check"/> Already in list
-                            </button>
-                        </t>
-                    </div>
-                </div>
-            </div>
-        </xpath>
-    </template>
-    
-    <template id="product_details" name="Product Details">
-        <div class="col-md-8">
-            <div t-field="product.description_html"/>
-        </div>
-        <div class="col-md-4">
-            <div itemprop="image" t-field="product.image" t-options="{'widget': 'image', 'class': 'product_image', 'alt-field': 'name'}"/>
-            <t t-call="gifts.product_details_list"/>
-            <t t-raw="0"/>
-        </div>
-    </template>
-    
+
     <template id="product_details_list" name="Product Details List">
         <ul class="list-unstyled" t-if="product.qty_available">
             <li>Available: <span t-esc="'Unlimited' if product.unlimited else product.qty_available"/></li>
@@ -218,7 +151,7 @@
     <template id="cart" name="Cart">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="container">
+                <div class="container oe_gifts">
                 <div class="row" t-if="cart_products">
                     <div class="col-md-12">
                         <h2 class="page-header">My List</h2>

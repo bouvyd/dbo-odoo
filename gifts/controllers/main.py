@@ -25,6 +25,18 @@ class GiftController(http.Controller):
         request.session['gifts_cart'] = cart
         return request.redirect('/gifts')
 
+    @http.route(['/gifts/add/'], type='json', auth="public", website=True)
+    def add_json(self, product_id, **kw):
+        product = request.env['gift.product'].browse(product_id)
+        self.add(product, **kw)
+        cart = self.get_cart()
+        product_data = product.read(['id', 'unlimited', 'qty_available'])
+        return {'cart': cart, 'product': product_data and product_data[0]}
+
+    @http.route(['/gifts/get/cart'], type="json", auth="public", website=True)
+    def get_cart(self, **kw):
+        return request.session.get('gifts_cart', dict())
+
     @http.route(['/gifts/cart'], type='http', auth="public", website=True)
     def cart(self, cart_type='page', **kw):
         cart = request.session.get('gifts_cart', dict())

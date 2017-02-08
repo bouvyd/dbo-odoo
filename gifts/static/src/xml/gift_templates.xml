@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="gift.add_btn">
+        <div class="product-btns text-right">
+            <t t-if="product.unlimited || ((cart[product.id] || 0) != product.qty_available)">
+                <a class="btn btn-xs btn-block btn-primary oe_gift_add" t-att-href="'/gifts/add/'+product.id" t-att-data-product-id="product.id">
+                    <i class="fa fa-gift"/> Add to list
+                </a>
+            </t>
+            <t t-if="!product.unlimited &amp;&amp; ((cart[product.id] || 0) == product.qty_available)">
+                <a class="btn btn-xs btn-block btn-primary" disabled="disabled">
+                    <i class="fa fa-check"/> Already in list
+                </a>
+            </t>
+        </div>
+    </t>
+
+</templates>
+
