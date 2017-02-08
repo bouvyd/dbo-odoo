@@ -27,7 +27,7 @@
                         <field name="price" widget="monetary"/>
                         <field name="unlimited" attrs="{'readonly': [('state', '!=', 'new')]}"/>
                         <field name="allow_split" attrs="{'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
-                        <field name="split_number" attrs="{'invisible': [('allow_split', '=', False)], 'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
+                        <field name="split_number" attrs="{'invisible': ['|', ('unlimited', '=', True), ('allow_split', '=', False)], 'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
                     </group>
                     <field name="gift_ids" attrs="{'invisible': ['|', ('allow_split', '=', False), ('unlimited', '=', True)], 'readonly': [('state', '!=', 'new')]}">
                         <tree editable="bottom">
