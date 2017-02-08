@@ -5,9 +5,9 @@ from odoo.http import request
 
 class GiftController(http.Controller):
 
-    @http.route(['/gifts'], type='http', auth="public", website=True)
-    def gifts(self, **kw):
-        products = request.env['gift.product'].search([])
+    @http.route(['/list/<model("gift.list"):gift_list>'], type='http', auth="public", website=True)
+    def gifts(self, gift_list, **kw):
+        products = request.env['gift.product'].search([('list_id', '=', gift_list.id)])
         cart = request.session.get('gifts_cart', dict())
         cart_products = [{'product': p, 'qty': cart.get(p.id)} for p in request.env['gift.product'].browse(cart.keys())]
         return request.render('gifts.gifts', {'cart_products': cart_products, 'products': products})

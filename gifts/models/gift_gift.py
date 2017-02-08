@@ -19,6 +19,7 @@ class GiftProduct(models.Model):
     split_number = fields.Integer(string="Number of gifts initially available for this product", default=1)
     qty_available = fields.Integer(string="Quantity available", compute="_compute_qty")
     gift_ids = fields.One2many('gift.gift', string="Gifts", inverse_name='product_id')
+    list_id = fields.Many2one('gift.list', string="List")
     description_html = fields.Html(string="Online Description")
     state = fields.Selection([('new', 'New'), ('partial', 'Partially Offered'), ('done', 'Offered'), ('ongoing', 'Ongoing')], compute='_compute_state', store=True, track_visibility='onchange')
     image = fields.Binary("Image", attachment=True, help="Limited to 1024x1024px",)

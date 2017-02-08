@@ -24,10 +24,15 @@
                     </div>
 
                     <group>
-                        <field name="price" widget="monetary"/>
-                        <field name="unlimited" attrs="{'readonly': [('state', '!=', 'new')]}"/>
-                        <field name="allow_split" attrs="{'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
-                        <field name="split_number" attrs="{'invisible': ['|', ('unlimited', '=', True), ('allow_split', '=', False)], 'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
+                        <group>
+                            <field name="price" widget="monetary"/>
+                            <field name="unlimited" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                            <field name="allow_split" attrs="{'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
+                            <field name="split_number" attrs="{'invisible': ['|', ('unlimited', '=', True), ('allow_split', '=', False)], 'readonly': [('state', '!=', 'new')], 'invisible': [('unlimited', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="list_id" widget="selection"/>
+                        </group>
                     </group>
                     <field name="gift_ids" attrs="{'invisible': ['|', ('allow_split', '=', False), ('unlimited', '=', True)], 'readonly': [('state', '!=', 'new')]}">
                         <tree editable="bottom">
@@ -127,6 +132,13 @@
                 </group>
            </search>
         </field>
+    </record>
+
+    <record id="gift_list_action" model="ir.actions.act_window">
+        <field name="name">Lists</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gift.list</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <record id="gift_product_action" model="ir.actions.act_window">
@@ -331,8 +343,9 @@
     <menuitem name="Gifts" id="gift_base_menu" web_icon="gifts,static/description/icon.png"/>
 
     <menuitem id="gift_menu" name="Gifts" parent="gift_base_menu" sequence="10"/>
-    <menuitem action="gift_product_action" id="gift_product_menu" name="Products" parent="gift_menu" sequence="10"/>
-    <menuitem action="gift_gift_action" id="gift_gift_menu" name="Gifts" parent="gift_menu" sequence="20"/>
+    <menuitem action="gift_list_action" id="gift_list_menu" name="Lists" parent="gift_menu" sequence="10"/>
+    <menuitem action="gift_product_action" id="gift_product_menu" name="Products" parent="gift_menu" sequence="20"/>
+    <menuitem action="gift_gift_action" id="gift_gift_menu" name="Gifts" parent="gift_menu" sequence="30"/>
 
     <menuitem id="followup_menu" name="Follow-ups" parent="gift_base_menu" sequence="20"/>
     <menuitem action="gift_followup_action" id="gift_followup_menu" name="Follow-ups" parent="followup_menu" sequence="10"/>
