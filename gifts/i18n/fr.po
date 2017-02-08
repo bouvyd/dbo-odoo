@@ -104,13 +104,8 @@ msgstr "<span aria-hidden=\"true\">&amp;times;</span>"
 
 #. module: gifts
 #: model:ir.ui.view,arch_db:gifts.report_followup
-msgid "<span>E-mail Announcements</span>"
-msgstr "<span>Faire-part par E-mail</span>"
-
-#. module: gifts
-#: model:ir.ui.view,arch_db:gifts.report_followup
-msgid "<span>Snail Mail Announcements</span>"
-msgstr "<span>Faire-part par courrier postal</span>"
+msgid "<span>Mail Announcements</span>"
+msgstr "<span>Faire-part</span>"
 
 #. module: gifts
 #: model:ir.ui.view,arch_db:gifts.cart
@@ -137,11 +132,6 @@ msgstr "Portionner"
 #: model:ir.ui.view,arch_db:gifts.product_done
 msgid "Already offered"
 msgstr "Déjà Offerts"
-
-#. module: gifts
-#: model:ir.model.fields,field_description:gifts.field_gift_followup_mail_type
-msgid "Announcement Type"
-msgstr "Type de Faire-part"
 
 #. module: gifts
 #: model:ir.ui.view,arch_db:gifts.product_details_list
@@ -206,11 +196,6 @@ msgid "Display Name"
 msgstr "Nom d'affichage"
 
 #. module: gifts
-#: selection:gift.followup,mail_type:0 model:ir.ui.view,arch_db:gifts.cart
-msgid "E-mail"
-msgstr "E-mail"
-
-#. module: gifts
 #: model:ir.ui.view,arch_db:gifts.cart
 #: model:ir.ui.view,arch_db:gifts.cart_popover
 msgid "Empty List"
@@ -246,11 +231,6 @@ msgstr "Remerciements"
 #: model:ir.ui.view,arch_db:gifts.gift_gift_search_view
 msgid "From"
 msgstr "De"
-
-#. module: gifts
-#: model:ir.ui.view,arch_db:gifts.cart
-msgid "Get the announcement by snail mail"
-msgstr "Reçevoir le faire-part par courrier postal"
 
 #. module: gifts
 #: model:ir.model,name:gifts.model_gift_gift
@@ -605,11 +585,6 @@ msgid "Small-sized image"
 msgstr "Image petite"
 
 #. module: gifts
-#: selection:gift.followup,mail_type:0
-msgid "Snail mail"
-msgstr "Courrier postal"
-
-#. module: gifts
 #: model:ir.model.fields,field_description:gifts.field_gift_followup_state
 #: model:ir.model.fields,field_description:gifts.field_gift_product_state
 #: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
@@ -622,7 +597,7 @@ msgid "Street"
 msgstr "Rue"
 
 #. module: gifts
-#: model:ir.ui.view,arch_db:gifts.view_partner_form_gifts
+#: model:ir.ui.view,arch_db:gifts.cart
 msgid "Street 2..."
 msgstr "Rue (2)"
 

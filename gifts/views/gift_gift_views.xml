@@ -153,6 +153,7 @@
                 <header>
                     <button type='object' name='force_send_followup' class="btn-primary" states="todo" string="Send"/>
                     <button type='object' name='set_paid' class="btn-primary" states="sent" string="Mark as Paid"/>
+                    <button type='object' name='set_thanks' class="btn-primary" states="sent,paid" string="Mark as Thanked"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -163,7 +164,6 @@
                             <field name="date" />
                         </group>
                         <group>
-                            <field name="mail_type"/>
                             <field name="account_id"/>
                             <field name="message" attrs="{'invisible': [('message', '=', False)]}"/>
                             <field name="baby_name" attrs="{'invisible': [('baby_name', '=', False)]}"/>

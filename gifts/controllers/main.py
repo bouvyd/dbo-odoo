@@ -51,7 +51,7 @@ class GiftController(http.Controller):
                 Product = request.env['gift.product']
                 Followups = request.env['gift.followup']
                 mandatory_fields = set(['name', 'email'])
-                if kw.get('snail_mail'):
+                if request.env['ir.config_parameter'].sudo().get_param('gifts.address_mandatory'):
                     mandatory_fields |= set(['street', 'zip_code', 'city'])
                 gifts = Gift.browse()
                 gift_conflict = {}
@@ -82,15 +82,12 @@ class GiftController(http.Controller):
                     partner_vals = {
                         'name': kw.get('name'),
                         'email': kw.get('email'),
+                        'street': kw.get('street'),
+                        'street2': kw.get('street2'),
+                        'zip': kw.get('zip_code'),
+                        'city': kw.get('city'),
+                        'country_id': kw.get('country_id') and int(kw.get('country_id')),
                     }
-                    if kw.get('snail_mail'):
-                        partner_vals.update({
-                            'street': kw.get('street'),
-                            'street2': kw.get('street2'),
-                            'zip': kw.get('zip_code'),
-                            'city': kw.get('city'),
-                            'country_id': kw.get('country_id') and int(kw.get('country_id')),
-                        })
                     partner_id = Partner.sudo().create(partner_vals)
                 partner_id.category_id |= request.env.ref('gifts.gift_category')
                 if gift_unltd:
@@ -105,7 +102,6 @@ class GiftController(http.Controller):
                     'message': kw.get('message'),
                     'baby_date': kw.get('date') or False,
                     'baby_name': kw.get('baby_name'),
-                    'mail_type': 'snail_mail' if kw.get('snail_mail') else 'email',
                 }
                 followup = Followups.sudo().create(followup_vals)
                 followup.force_send_followup()

@@ -15,12 +15,11 @@ class GiftFollowup(models.Model):
     price = fields.Float(string="Total")
     gift_date = fields.Date('Gift Date', default=fields.Date.today)
     date = fields.Date('Send Date')
-    state = fields.Selection([('todo', 'To Do'), ('sent', 'Sent'), ('paid', 'Paid')], default="todo", track_visibility='onchange')
+    state = fields.Selection([('todo', 'To Do'), ('sent', 'Sent'), ('paid', 'Paid'), ('thanks', 'Thanked')], default="todo", track_visibility='onchange')
     account_id = fields.Many2one('gift.account', string='Bank Account', default=_default_account)
     message = fields.Text(string="Gift message")
     baby_name = fields.Char(string="Name proposal")
     baby_date = fields.Date(string="Birth date proposal")
-    mail_type = fields.Selection(string="Announcement Type", selection=[('email', 'E-mail'), ('snail_mail', 'Snail mail')], defautl="email")
 
     @api.multi
     def force_send_followup(self):
@@ -32,6 +31,10 @@ class GiftFollowup(models.Model):
     @api.multi
     def set_paid(self):
         self.write({'state': 'paid'})
+
+    @api.multi
+    def set_thanks(self):
+        self.write({'state': 'thanks'})
 
     @api.multi
     def name_get(self):

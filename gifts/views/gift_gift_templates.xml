@@ -229,13 +229,7 @@
                                     <textarea rows="3" class="form-control" name="message" placeholder="Write a few words..."  t-att-value="values.get('message')"/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-9 col-sm-offset-3">
-                                    <input type="checkbox" name="snail_mail" t-att-checked="values.get('snail_mail')"/>
-                                    <label for="snail_mail" class="control-label">Get the announcement by snail mail</label>
-                                </div>
-                            </div>
-                            <div t-attf-class="form-group address hidden #{set(errors.get('missing', [])) &amp; set(['street', 'city', 'zip_code']) and 'has-error' or ''}">
+                            <div t-attf-class="form-group address #{set(errors.get('missing', [])) &amp; set(['street', 'city', 'zip_code']) and 'has-error' or ''}">
                                 <label for="street" class="col-sm-3 control-label">Address</label>
                                 <div class="col-sm-9">
                                     <input type="char" class="form-control mb4" name="street" placeholder="Street" t-att-value="values.get('street')"/>

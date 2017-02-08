@@ -22,21 +22,11 @@ odoo.define('gifts.cart', function (require) {
     }
 
     ajax.loadXML('/gifts/static/src/xml/gift_templates.xml', core.qweb);
-    var update_mail_type = function() {
-        var address = $("div[class~='address']");
-        if ($("input[name='snail_mail']").is(':checked')) {
-            address.removeClass('hidden');
-        } else {
-            address.addClass('hidden');
-        }
-    };
     var update_gift_counter = function(cart) {
         var list_count = _.reduce(_.values(cart), function(a,b){ return a + b; }, 0);
         $(".oe_gift_cart_count").html(list_count)
     };
 
-    $("input[name='snail_mail']").on("click", update_mail_type);
-    update_mail_type();
 
     // cart popup display
     var cart = $('ul#top_menu li a[href$="/gifts/cart"]');

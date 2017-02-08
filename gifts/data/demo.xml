@@ -106,7 +106,6 @@
         <field name="gifter_id" ref="gifter_1"/>
         <field name="gift_ids" eval="[(4, ref('gifts.gift_gift_demo_41'), False), (4, ref('gifts.gift_gift_demo_51'), False)]"/>
         <field name="gift_date" eval="(DateTime.now() - timedelta(days=2))"/>
-        <field name="mail_type">snail_mail</field>
         <field name="account_id" ref="gifts.default_account"/>
         <field name="message">Enjoy these, you've earned them!</field>
     </record>
@@ -115,7 +114,6 @@
         <field name="gifter_id" ref="gifter_2"/>
         <field name="gift_ids" eval="[(4, ref('gifts.gift_gift_demo_52'), False)]"/>
         <field name="gift_date" eval="(DateTime.now())"/>
-        <field name="mail_type">email</field>
         <field name="account_id" ref="gifts.default_account"/>
         <field name="message">She's so cute with her little fingers and all!</field>
     </record>
