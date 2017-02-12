@@ -7,7 +7,7 @@
     'category': 'Gifts',
     'website': 'https://www.damienbouvy.be',
     'summary': 'Gift List management',
-    'depends': ['web', 'mail', 'website'],
+    'depends': ['web', 'mail', 'website', 'portal'],
     'description': """
 Gift Lists management
 =====================
