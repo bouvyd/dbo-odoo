@@ -20,6 +20,7 @@ class GiftFollowup(models.Model):
     message = fields.Text(string="Gift message")
     baby_name = fields.Char(string="Name proposal")
     baby_date = fields.Date(string="Birth date proposal")
+    new_field = fields.Boolean(string="My New Field!")
 
     @api.multi
     def force_send_followup(self):
