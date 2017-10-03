@@ -2,7 +2,7 @@
 
 {
     'name': 'Gifts',
-    'version': '1.1.1',
+    'version': '1.1.2',
     'author': 'Damien Bouvy',
     'category': 'Gifts',
     'website': 'https://www.damienbouvy.be',
