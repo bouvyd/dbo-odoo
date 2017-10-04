@@ -196,6 +196,7 @@
                 <field name="gifter_id"/>
                 <field name="gift_date" />
                 <field name="state"/>
+                <field name="new_field"/>
                 <field name="message_needaction" invisible="1"/>
             </tree>
         </field>
