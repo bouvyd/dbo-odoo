@@ -1,0 +1,3 @@
+[submodule "plop"]
+	path = plop
+	url = git@github.com:dbo-odoo/plop.git
