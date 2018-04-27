@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="op_course_1" model="op.course">
+            <field name="code">boa</field>
+            <field name="name">Bachelor of Accountancy</field>
+            <field name="evaluation_type">GPA</field>
+            <field name="section">Bachelors Course</field>
+        </record>
+
+        <record id="op_course_2" model="op.course">
+            <field name="code">boa1</field>
+            <field name="name">BOA-Sem-1</field>
+            <field name="evaluation_type">GPA</field>
+            <field name="section">Bachelor's Degree-Sem 1</field>
+            <field name="parent_id" ref="op_course_1" />
+        </record>
+
+        <record id="op_course_3" model="op.course">
+            <field name="code">boa2</field>
+            <field name="name">BOA-Sem-2</field>
+            <field name="evaluation_type">GPA</field>
+            <field name="section">Bachelor's Degree-Sem 2</field>
+            <field name="parent_id" ref="op_course_1" />
+        </record>
+
+        <record id="op_course_4" model="op.course">
+            <field name="code">lrtp</field>
+            <field name="name">Land Restoration Programme</field>
+            <field name="evaluation_type">normal</field>
+            <field name="section">Bachelors Course</field>
+        </record>
+
+        <record id="op_course_5" model="op.course">
+            <field name="code">ielts</field>
+            <field name="name">IELTS</field>
+            <field name="evaluation_type">normal</field>
+            <field name="section">2015-I</field>
+        </record>
+
+        <record id="op_course_6" model="op.course">
+            <field name="code">g8c</field>
+            <field name="name">Grade-8-Course</field>
+            <field name="evaluation_type">normal</field>
+            <field name="section">K-12-Grade 8</field>
+        </record>
+
+    </data>
+</odoo>
